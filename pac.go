@@ -41,6 +41,7 @@ func (p Pac) Port() int {
 	return portNum
 }
 
+// Tld exports the internal tld field
 func (p Pac) Tld() string {
 	return p.tld
 }
@@ -78,7 +79,7 @@ func New(t *template.Template, addr string, port int, tld string) http.Handler {
 var Me = template.Must(template.New("me").Parse(`
 function FindProxyForURL (url, host) {
     if (dnsDomainIs(host, '{{.Tld}}')) {
-        return 'PROXY {{.Host}}:{{.Port}}'
+        return 'PROXY {{.Address}}:{{.Port}}'
     }
     return 'DIRECT'
 }
